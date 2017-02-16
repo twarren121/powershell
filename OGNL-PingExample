@@ -1,0 +1,47 @@
+Ognal Examples
+------------
+calc=new java.util.Date().getTime()
+----------
+GUID = @java.util.UUID@randomUUID().toString()
+
+----------------
+
+SAML_SUBJECT = 
+(#this.get(ds.memberOf").getValue().equals("tt"))
+) ? #this.get("ds.mail") : "FALSE" (Expression)
+
+---------------
+SAML_SUBJECT = (#this.get("ds.memberOf").getValue().matches("*.BX_*)) ? #this.get("ds.mail") : null
+
+--------
+#GroupCnOnly = new java.util.Array(), 
+#groups = #this.get("ds.memberOf")!=null?
+#this.get("ds.memberOf").getValues():{},
+
+#groups.{
+#group = #this,
+#group = new javax.naming.ldap.LdapName(#group),
+#cn=#group.getRdn(#group.size() -1).getValue().toString(),
+#groupCnOnly.add(#cn)
+},
+
+#this.get("ds.memberOf")!=null ? new
+org.sourceid.saml20.adapter.attribute.AttributeValue(#groupCnOnly):null
+
+-----------
+
+new org.sourceid.saml20.adapter.attribute.AttributeValue((
+#this.get("ds.memberOf")!=null
+?
+#this.get("ds.memberOf").{? 
+mathces("CN=(BX_).*")}:null))
+
+-----
+
+new org.sourceid.saml20.adapter.attribute.AttributeValue((#this.get("ds.memberOf")!=null? #this.get("ds.memberOf").toString().replaceAll("\\[|\\]","").split(",\\s").{?  matches("CN=(Employees|Managers).*")}:null)) 
+
+--------------
+
+#GroupCnOnly = new java.util.Array(),  #groups = #this.get("ds.memberOf")!=null? #this.get("ds.memberOf").getValues():{},  #groups.{ #group = #this, #group = new javax.naming.ldap.LdapName(#group), #cn=#group.getRdn(#group.size() -1).getValue().toString(), #groupCnOnly.add(#cn) },  #this.get("ds.memberOf")!=null ? new org.sourceid.saml20.adapter.attribute.AttributeValue(#groupCnOnly):null
+
+
